@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash -x 
 
 echo "Welcome to Employee Wage."
 
@@ -6,9 +6,13 @@ WAGE_PER_HOUR=20
 FULL_DAY_HOUR=8
 PART_TIME_HOUR=4
 
-result=$((RANDOM % 3))
 
-case $result in
+day=1
+while [ $day -le 20 ]
+do
+	echo "Day = $day"
+	result=$((RANDOM % 3))
+	case $result in
 				1)echo "Employee is work full time."
 					echo "Employee Daily Wage is = $((FULL_DAY_HOUR * WAGE_PER_HOUR))"
 					;;
@@ -18,4 +22,6 @@ case $result in
 				0)echo "Employee is absent."
 					echo "Employee Daily Wage is = 0"
 					;;
-esac
+	esac
+	((day++))
+done
