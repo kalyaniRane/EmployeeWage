@@ -8,14 +8,14 @@ PART_TIME_HOUR=4
 
 result=$((RANDOM % 3))
 
-if [[ $result -eq 0 ]]
-then
-	echo "Employee is absent"
-elif [[ $result -eq 1 ]]
-then
-	echo "FullTime Employee"
-	echo "Employee has Salary = $((FULL_DAY_HOUR * WAGE_PER_HOUR))"
-else
-	echo "PartTime Employee"
-	echo "Employee has Salary = $((PART_TIME_HOUR * WAGE_PER_HOUR))"
-fi
+case $result in
+				1)echo "Employee is work full time."
+					echo "Employee Daily Wage is = $((FULL_DAY_HOUR * WAGE_PER_HOUR))"
+					;;
+				2)echo "Employee is work part time."
+				  echo "Employee Daily Wage is = $((PART_TIME_HOUR * WAGE_PER_HOUR))"
+					;;
+				0)echo "Employee is absent."
+					echo "Employee Daily Wage is = 0"
+					;;
+esac
