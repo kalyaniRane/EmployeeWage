@@ -9,23 +9,27 @@ PART_TIME_HOUR=4
 hours=0
 totalHours=0
 day=0
-while [[ $day -lt 20 && $totalHours -lt 100 ]]
-do
-	echo "Day = $day"
-	result=$((RANDOM % 3))
-	case $result in
-				1)salary=$((salary + ((FULL_DAY_HOUR * WAGE_PER_HOUR))))
-					hours=8
-					((day++))
+
+function getWorkingHours()
+{
+	checkEmpl=$((RANDOM % 3))
+	case $checkEmpl in
+				0)	hours=8
 					;;
-				2)salary=$((salary + ((PART_TIME_HOUR * WAGE_PER_HOUR))))
-					hours=4
-					((day++))
+				1)	hours=4
 					;;
-				0)salary=$((salary + 0))
-					hours=0
+				2)hours=0
 					;;
 	esac
-	totalHours=$((totalHours + hours))
+	echo "$hours"
+}
+while [[ $day -lt 20 && $totalHours -lt 100 ]]
+do
+			totalHours=$((totalHours + $(getWorkingHours)))
+		if [ $(getWorkingHours) -ne 0 ]
+		then
+			((day++))
+		fi
 done
-echo "Monthly Wage is: $salary"
+echo "Total working hours in a month: $totalHours"
+echo "Total monthly salary is: $((WAGE_PER_HOUR * totalHours))"
