@@ -1,4 +1,4 @@
-#!/bin/bash -x 
+#!/bin/bash 
 
 echo "Welcome to Employee Wage."
 
@@ -12,24 +12,28 @@ day=0
 
 function getWorkingHours()
 {
-	checkEmpl=$((RANDOM % 3))
+	checkEmpl=$((RANDOM % 2))
 	case $checkEmpl in
 				0)	hours=8
 					;;
 				1)	hours=4
 					;;
-				2)hours=0
+				*)hours=0
 					;;
 	esac
 	echo "$hours"
 }
 while [[ $day -lt 20 && $totalHours -lt 100 ]]
 do
-			totalHours=$((totalHours + $(getWorkingHours)))
-		if [ $(getWorkingHours) -ne 0 ]
-		then
+			hours=$(getWorkingHours)
+			totalHours=$((totalHours + hours))
+
+			DailyWage[day]=$((WAGE_PER_HOUR * $hours))
+			totalSalary=$((totalSalary + ${DailyWage[day]}))
+
+			echo -e "Day = $((day+1)) Day Wage = ${DailyWage[day]} \n "
 			((day++))
-		fi
 done
-echo "Total working hours in a month: $totalHours"
-echo "Total monthly salary is: $((WAGE_PER_HOUR * totalHours))"
+
+echo "Daily Wage is: ${DailyWage[@]}"
+echo "Total monthly salary is: $totalSalary"
