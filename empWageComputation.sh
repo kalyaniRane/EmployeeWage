@@ -6,9 +6,9 @@ WAGE_PER_HOUR=20
 FULL_DAY_HOUR=8
 PART_TIME_HOUR=4
 
-hours=0
-totalHours=0
-day=0
+day=1
+
+declare -A DailyWage
 
 function getWorkingHours()
 {
@@ -28,12 +28,13 @@ do
 			hours=$(getWorkingHours)
 			totalHours=$((totalHours + hours))
 
-			DailyWage[day]=$((WAGE_PER_HOUR * $hours))
-			totalSalary=$((totalSalary + ${DailyWage[day]}))
+			DailyWage["Day "$day]=$((WAGE_PER_HOUR * $hours))
+			totalSalary=$((totalSalary + ${DailyWage["Day "$day]}))
 
-			echo -e "Day = $((day+1)) Day Wage = ${DailyWage[day]} \n "
+			
 			((day++))
 done
 
-echo "Daily Wage is: ${DailyWage[@]}"
+echo -e "Days are : ${!DailyWage[@]} \n"
+echo -e "Daily Wage is: ${DailyWage[@]} \n"
 echo "Total monthly salary is: $totalSalary"
