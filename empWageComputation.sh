@@ -14,9 +14,9 @@ function getWorkingHours()
 {
 	checkEmpl=$((RANDOM % 2))
 	case $checkEmpl in
-				0)	hours=8
+				0)hours=8
 					;;
-				1)	hours=4
+				1)hours=4
 					;;
 				*)hours=0
 					;;
@@ -31,7 +31,6 @@ do
 			DailyWage["Day "$day]=$((WAGE_PER_HOUR * $hours))
 			totalSalary=$((totalSalary + ${DailyWage["Day "$day]}))
 
-			
 			((day++))
 done
 
